@@ -31,15 +31,15 @@ export class AuthService {
 
   async signUp(authUserDto: AuthUserDto) {
     //separates password and updated_at from user
-    const { password, updated_at, ...createdUser } =
+    const { password, updated_at, ...newUser } =
       await this.userService.create(authUserDto);
 
     const tokens = this.issueTokens({
-      id: createdUser.id,
-      email: createdUser.email,
+      id: newUser.id,
+      email: newUser.email,
     });
 
-    return { createdUser, ...tokens };
+    return { newUser, ...tokens };
   }
 
   async signIn(authUserDto: AuthUserDto) {

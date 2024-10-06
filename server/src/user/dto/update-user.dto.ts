@@ -5,12 +5,17 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
+import {
+  MAX_USERNAME_LENGTH,
+  MIN_PASSWORD_LENGTH,
+  MIN_USERNAME_LENGTH,
+} from 'src/constants/user.constants';
 
 export class UpdateUserDto {
   @IsOptional()
   @IsString()
-  @MinLength(3)
-  @MaxLength(12)
+  @MinLength(MIN_USERNAME_LENGTH)
+  @MaxLength(MAX_USERNAME_LENGTH)
   username?: string;
 
   @IsOptional()
@@ -19,6 +24,6 @@ export class UpdateUserDto {
 
   @IsOptional()
   @IsString()
-  @MinLength(6)
+  @MinLength(MIN_PASSWORD_LENGTH)
   password?: string;
 }

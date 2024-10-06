@@ -54,12 +54,12 @@ export class UserService {
     if (updateUserDto.password)
       data.password = await hash(updateUserDto.password);
 
-    const updatedUser = await this.prismaService.user.update({
+    const user = await this.prismaService.user.update({
       where: { id: userId },
       data,
     });
 
-    return updatedUser;
+    return user;
   }
 
   async delete(userId: number) {
