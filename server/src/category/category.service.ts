@@ -4,10 +4,8 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { Category } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { CreateCategoryDto } from './dto/create-category.dto';
-import { UpdateCategoryDto } from './dto/update-category.dto';
+import { CategoryDto } from './dto/category.dto';
 
 @Injectable()
 export class CategoryService {
@@ -19,36 +17,29 @@ export class CategoryService {
     });
   }
 
-  async create(userId: number, createCategoryDto: CreateCategoryDto) {
+  async create(userId: number, categoryDto: CategoryDto) {
     const category = await this.prismaService.category.findFirst({
       where: {
         userId,
-        name: createCategoryDto.name,
+        name: categoryDto.name,
       },
     });
 
     if (category) throw new BadRequestException('category already exists');
 
     const newCategory = await this.prismaService.category.create({
-      data: { name: createCategoryDto.name, user: { connect: { id: userId } } },
+      data: { name: categoryDto.name, user: { connect: { id: userId } } },
     });
 
     return newCategory;
   }
 
-  async update(
-    userId: number,
-    categoryId: number,
-    updateCategoryDto: UpdateCategoryDto,
-  ) {
+  async update(userId: number, categoryId: number, categoryDto: CategoryDto) {
     await this.validateCategory(userId, categoryId);
-
-    const data: Partial<Category> = updateCategoryDto;
-    console.log(data);
 
     const category = await this.prismaService.category.update({
       where: { id: categoryId },
-      data,
+      data: categoryDto,
     });
 
     return category;
@@ -64,7 +55,7 @@ export class CategoryService {
     return true;
   }
 
-  private async validateCategory(userId: number, categoryId: number) {
+  async validateCategory(userId: number, categoryId: number) {
     const category = await this.getOne(categoryId);
 
     if (!category) throw new NotFoundException('category not found');

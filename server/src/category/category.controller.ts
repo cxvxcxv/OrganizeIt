@@ -4,15 +4,14 @@ import {
   Delete,
   Param,
   ParseIntPipe,
-  Patch,
   Post,
+  Put,
   ValidationPipe,
 } from '@nestjs/common';
 import { Protect } from 'src/auth/decorators/auth.decorator';
 import { CurrentUser } from 'src/auth/decorators/user.decorator';
 import { CategoryService } from './category.service';
-import { CreateCategoryDto } from './dto/create-category.dto';
-import { UpdateCategoryDto } from './dto/update-category.dto';
+import { CategoryDto } from './dto/category.dto';
 
 @Controller('categories')
 export class CategoryController {
@@ -22,23 +21,19 @@ export class CategoryController {
   @Protect()
   async create(
     @CurrentUser('id') userId: number,
-    @Body(ValidationPipe) createCategoryDto: CreateCategoryDto,
+    @Body(ValidationPipe) categoryDto: CategoryDto,
   ) {
-    return await this.categoryService.create(userId, createCategoryDto);
+    return await this.categoryService.create(userId, categoryDto);
   }
 
-  @Patch(':categoryId')
+  @Put(':categoryId')
   @Protect()
   async update(
     @CurrentUser('id') userId: number,
     @Param('categoryId', ParseIntPipe) categoryId: number,
-    @Body(ValidationPipe) updateCategoryDto: UpdateCategoryDto,
+    @Body(ValidationPipe) categoryDto: CategoryDto,
   ) {
-    return await this.categoryService.update(
-      userId,
-      categoryId,
-      updateCategoryDto,
-    );
+    return await this.categoryService.update(userId, categoryId, categoryDto);
   }
 
   @Delete(':categoryId')

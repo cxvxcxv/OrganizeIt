@@ -1,7 +1,9 @@
 import {
+  IsBoolean,
   IsDateString,
   IsIn,
   IsNotEmpty,
+  IsNumber,
   IsOptional,
   IsString,
   MaxLength,
@@ -12,7 +14,7 @@ import {
   PRIORITIES,
 } from 'src/constants/task.constants';
 
-export class CreateTaskDto {
+export class TaskDto {
   @IsString()
   @IsNotEmpty()
   @MaxLength(MAX_TITLE_LENGTH)
@@ -29,4 +31,12 @@ export class CreateTaskDto {
   @IsString()
   @IsIn(PRIORITIES)
   priority: string;
+
+  @IsOptional()
+  @IsBoolean()
+  isCompleted?: boolean;
+
+  @IsOptional()
+  @IsNumber()
+  categoryId?: number;
 }
