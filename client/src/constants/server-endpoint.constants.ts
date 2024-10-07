@@ -14,4 +14,7 @@ export const SERVER_ENDPOINTS = {
   TASKS: {
     BASE: 'tasks',
   },
+  USERS: {
+    BASE: 'users',
+  },
 };
