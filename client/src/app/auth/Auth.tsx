@@ -8,8 +8,8 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
+import { Loader } from '@/components/Loader';
 import { Field } from '@/components/ui/Field';
-import { Loader } from '@/components/ui/Loader';
 import { ButtonPrimary } from '@/components/ui/buttons/ButtonPrimary';
 
 import { SITE_NAME } from '@/constants/seo.constants';

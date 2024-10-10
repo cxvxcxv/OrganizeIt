@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss';
 
 import { COLORS } from './src/constants/color.constants';
+import { SPACING } from './src/constants/spacing.constants';
 
 const config: Config = {
   content: [
@@ -10,6 +11,9 @@ const config: Config = {
   ],
   theme: {
     colors: COLORS,
+    extend: {
+      spacing: SPACING,
+    },
   },
   plugins: [],
 };
