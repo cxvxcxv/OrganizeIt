@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   ForbiddenException,
   Injectable,
   NotFoundException,
@@ -15,14 +16,20 @@ export class TaskService {
   ) {}
 
   async create(userId: number, taskDto: TaskDto) {
-    const { categoryId, ...data } = taskDto;
+    const { categoryId, deadline, ...data } = taskDto;
 
     if (categoryId)
       await this.categoryService.validateCategory(userId, categoryId);
 
+    const formattedDeadline = new Date(deadline);
+    if (isNaN(formattedDeadline.getTime())) {
+      throw new BadRequestException('Invalid date format, expected yyyy-mm-dd');
+    }
+
     const newTask = await this.prismaService.task.create({
       data: {
         ...data,
+        deadline: formattedDeadline,
         user: { connect: { id: userId } },
         //connects category if categoryId is defined
         ...(categoryId && {

@@ -1,11 +1,11 @@
 import {
   IsBoolean,
-  IsDateString,
   IsIn,
   IsNotEmpty,
   IsNumber,
   IsOptional,
   IsString,
+  Matches,
   MaxLength,
 } from 'class-validator';
 import {
@@ -25,7 +25,9 @@ export class TaskDto {
   @MaxLength(MAX_DESCRIPTION_LENGTH)
   description?: string;
 
-  @IsDateString()
+  @Matches(/^\d{4}-\d{2}-\d{2}$/, {
+    message: 'Invalid date format, expected yyyy-mm-dd',
+  })
   deadline: string;
 
   @IsString()

@@ -47,7 +47,10 @@ export class AuthService {
     if (!user || !(await verify(user.password, authUserDto.password)))
       throw new UnauthorizedException('invalid credentials');
 
-    return this.issueTokens({ id: user.id, email: user.email });
+    const tokens = this.issueTokens({ id: user.id, email: user.email });
+    const { password, ...data } = user;
+
+    return { data, ...tokens };
   }
 
   async refreshTokens(refreshToken: string) {
