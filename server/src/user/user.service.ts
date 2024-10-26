@@ -22,7 +22,7 @@ export class UserService {
         ],
       },
       include: {
-        tasks: true,
+        tasks: { orderBy: { deadline: 'desc' } },
         categories: true,
       },
     });

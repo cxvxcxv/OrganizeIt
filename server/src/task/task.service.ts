@@ -49,10 +49,16 @@ export class TaskService {
     if (categoryId)
       await this.categoryService.validateCategory(userId, categoryId);
 
+    const formattedDeadline = new Date(taskDto.deadline);
+    if (isNaN(formattedDeadline.getTime())) {
+      throw new BadRequestException('Invalid date format, expected yyyy-mm-dd');
+    }
+
     const task = await this.prismaService.task.update({
       where: { id: taskId },
       data: {
         ...data,
+        deadline: formattedDeadline,
         ...(categoryId && { category: { connect: { id: categoryId } } }),
       },
     });
