@@ -10,7 +10,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { Loader } from '@/components/Loader';
 import { Field } from '@/components/ui/Field';
-import { ButtonPrimary } from '@/components/ui/buttons/ButtonPrimary';
+import { ButtonActive } from '@/components/ui/buttons/ButtonActive';
 
 import { SITE_NAME } from '@/constants/seo.constants';
 
@@ -86,10 +86,10 @@ export function Auth() {
             })}
           />
           {errors?.email?.type === 'required' && (
-            <p className="text-error text-xs">{errors.email.message}</p>
+            <p className="text-xs text-error">{errors.email.message}</p>
           )}
           {errors?.email?.type === 'pattern' && (
-            <p className="text-error text-xs">Please provide a valid email</p>
+            <p className="text-xs text-error">Please provide a valid email</p>
           )}
           <Field
             label="Password"
@@ -102,19 +102,19 @@ export function Auth() {
             })}
           />
           {errors?.password?.type === 'minLength' && (
-            <p className="text-error text-xs">
+            <p className="text-xs text-error">
               Password must be at least 6 characters long
             </p>
           )}
-          <ButtonPrimary
+          <ButtonActive
             className="mt-8 w-full"
             //disables if there are errors or is fetching
             disabled={!!Object.keys(errors).length || isPending}
           >
             Continue {isPending ? <Loader /> : <ArrowRight />}
-          </ButtonPrimary>
+          </ButtonActive>
           {errorMessage && (
-            <p className="text-error text-center text-xs">{errorMessage}</p>
+            <p className="text-center text-xs text-error">{errorMessage}</p>
           )}
           <p className="mt-4 text-center text-sm">
             {authMethod === 'Sign In'

@@ -15,12 +15,15 @@ export const TaskService = {
   },
 
   async update(taskId: number, data: TTaskInput) {
-    const response = await axiosAuth.put<ITask>(
-      `${SERVER_ENDPOINTS.TASKS.BASE}/${taskId}`,
-      data,
-    );
-
-    return response?.data;
+    try {
+      const response = await axiosAuth.put<ITask>(
+        `${SERVER_ENDPOINTS.TASKS.BASE}/${taskId}`,
+        data,
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
   },
 
   async delete(taskId: number) {

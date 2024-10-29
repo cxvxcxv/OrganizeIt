@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 
 import { IMenuItem } from '@/types/menu-item.types';
 
-export function MenuItem({ item }: { item: IMenuItem }) {
+export function SidebarItem({ item }: { item: IMenuItem }) {
   const pathname = usePathname();
   const isActive = pathname === item.link;
   return (

@@ -6,8 +6,9 @@ import { axiosAuth } from '@/api/interceptors';
 
 export const UserService = {
   async getProfile() {
+    console.log('fetching profile...');
     const response = await axiosAuth.get<IProfile>(
-      `/${SERVER_ENDPOINTS.USERS}`,
+      `/${SERVER_ENDPOINTS.USERS.BASE}`,
     );
 
     return response?.data;

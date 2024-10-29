@@ -1,4 +1,4 @@
-import { CircleCheck, LayoutDashboard, User } from 'lucide-react';
+import { CircleCheckBig, LayoutDashboard, User } from 'lucide-react';
 
 import { IMenuItem } from '@/types/menu-item.types';
 
@@ -13,7 +13,7 @@ export const MENU: IMenuItem[] = [
   {
     name: 'My tasks',
     link: PAGES.TASKS,
-    icon: CircleCheck,
+    icon: CircleCheckBig,
   },
   {
     name: 'Profile',

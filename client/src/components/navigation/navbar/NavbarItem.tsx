@@ -16,7 +16,7 @@ export function NavbarItem({ item }: { item: IMenuItem }) {
         'bg-primary bg-opacity-15': isActive,
       })}
     >
-      <item.icon />
+      <item.icon strokeWidth={isActive ? 2 : 1.5} />
     </Link>
   );
 }
