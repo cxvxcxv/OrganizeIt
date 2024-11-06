@@ -3,7 +3,7 @@ import {
   Controller,
   Delete,
   Get,
-  Put,
+  Patch,
   ValidationPipe,
 } from '@nestjs/common';
 import { Protect } from 'src/auth/decorators/auth.decorator';
@@ -21,7 +21,7 @@ export class UserController {
     return await this.userService.getOne(userId);
   }
 
-  @Put()
+  @Patch()
   @Protect()
   async updateProfile(
     @CurrentUser('id') userId: number,

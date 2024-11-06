@@ -46,11 +46,17 @@ export class UserService {
   }
 
   async update(userId: number, updateUserDto: UpdateUserDto) {
-    await this.validateUserExistence(userId);
+    const currentUser = await this.validateUserExistence(userId);
 
     const data: Partial<User> = {};
+
     if (updateUserDto.username) data.username = updateUserDto.username;
-    if (updateUserDto.email) data.email = updateUserDto.email;
+    if (updateUserDto.email) {
+      const user = await this.getOne(updateUserDto.email);
+      if (user && updateUserDto.email !== currentUser.email)
+        throw new BadRequestException('User with such email already exists');
+      data.email = updateUserDto.email;
+    }
     if (updateUserDto.password)
       data.password = await hash(updateUserDto.password);
 
@@ -71,5 +77,6 @@ export class UserService {
   private async validateUserExistence(userIdOrEmail: number | string) {
     const user = await this.getOne(userIdOrEmail);
     if (!user) throw new NotFoundException('user not found');
+    return user;
   }
 }
