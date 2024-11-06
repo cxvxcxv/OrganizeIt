@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { InputHTMLAttributes, forwardRef } from 'react';
 
 type TInputFieldProps = {
@@ -37,7 +38,10 @@ export const Field = forwardRef<HTMLInputElement, TInputFieldProps>(
           type={type}
           placeholder={placeholder}
           autoComplete={autoComplete || 'off'}
-          className={`w-full rounded-md bg-background p-2 text-sm outline-none ${inputExtra}`}
+          className={clsx(
+            `w-full rounded-md bg-background p-2 text-sm outline-none ${inputExtra}`,
+            { 'cursor-not-allowed opacity-70': disabled },
+          )}
           {...rest}
         />
       </div>

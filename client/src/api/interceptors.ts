@@ -30,6 +30,11 @@ axiosAuth.interceptors.response.use(
   async err => {
     const originalRequest = err.config;
 
+    if (!err.response)
+      return Promise.reject(
+        new Error('Network error: server may be down or unreachable'),
+      );
+
     if (
       (err?.response?.status === 401 ||
         errorCatch(err) === 'jwt expired' ||
@@ -41,9 +46,11 @@ axiosAuth.interceptors.response.use(
       try {
         await AuthService.refreshTokens();
         return axiosAuth.request(originalRequest);
-      } catch (err) {
-        if (errorCatch(err) === 'jwt expired') removeTokenFromStorage();
+      } catch (refreshErr) {
+        if (errorCatch(refreshErr) === 'jwt expired') removeTokenFromStorage();
+        return Promise.reject(refreshErr);
       }
     }
+    return Promise.reject(err);
   },
 );

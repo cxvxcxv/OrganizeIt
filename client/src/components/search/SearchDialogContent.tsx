@@ -45,7 +45,7 @@ export function SearchDialogContent({
     <section>
       <Field
         label=""
-        id="search"
+        id="searchDialog"
         placeholder="Search..."
         onChange={e => setSearchValue(e.target.value)}
         value={searchValue}
