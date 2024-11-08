@@ -1,12 +1,11 @@
 import type { Metadata } from 'next';
-import { DM_Sans } from 'next/font/google';
 
 import { SITE_NAME } from '@/constants/seo.constants';
 
+import { Providers } from './Providers';
 import './globals.css';
-import { Providers } from './providers';
 
-const dm_sans = DM_Sans({ subsets: ['latin'] });
+// const dm_sans = DM_Sans({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: {
@@ -23,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${dm_sans.className} bg-background`}>
+      <body>
         <Providers>{children}</Providers>
       </body>
     </html>
