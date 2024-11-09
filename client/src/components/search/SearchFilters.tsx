@@ -1,19 +1,17 @@
 'use client';
 
 import { ICategory } from '@/types/category.types';
-import { ESearchFilterKeys } from '@/types/searchFilter.types';
+import { ETaskInputKeys } from '@/types/task.types';
+
+import {
+  identifySearchCategoryId,
+  identifyStatus,
+} from '@/utils/identifyProperty';
 
 type TSearchFiltersProps = {
   categories: ICategory[];
-  handleChangeSearchFilters: (filter: ESearchFilterKeys, value: any) => void;
+  handleChangeSearchFilters: (filter: ETaskInputKeys, value: any) => void;
 };
-
-// helper function to identify the category ID
-const identifyCategoryId = (value: string) =>
-  value === 'null' ? null : value === '' ? undefined : Number(value);
-
-const identifyStatus = (value: string) =>
-  value === 'true' ? true : value === 'false' ? false : undefined;
 
 export function SearchFilters({
   categories,
@@ -26,8 +24,8 @@ export function SearchFilters({
         defaultValue=""
         onChange={e =>
           handleChangeSearchFilters(
-            ESearchFilterKeys.CATEGORY_ID,
-            identifyCategoryId(e.target.value),
+            ETaskInputKeys.CATEGORY_ID,
+            identifySearchCategoryId(e.target.value),
           )
         }
         className="rounded-xl border px-2 py-1"
@@ -48,7 +46,7 @@ export function SearchFilters({
           id="searchDeadline"
           onChange={e =>
             handleChangeSearchFilters(
-              ESearchFilterKeys.DEADLINE,
+              ETaskInputKeys.DEADLINE,
               e.target.value ? `${e.target.value} 00:00:00` : undefined,
             )
           }
@@ -61,7 +59,7 @@ export function SearchFilters({
         defaultValue=""
         onChange={e =>
           handleChangeSearchFilters(
-            ESearchFilterKeys.PRIORITY,
+            ETaskInputKeys.PRIORITY,
             e.target.value || undefined,
           )
         }
@@ -78,7 +76,7 @@ export function SearchFilters({
         defaultValue=""
         onChange={e =>
           handleChangeSearchFilters(
-            ESearchFilterKeys.IS_COMPLETED,
+            ETaskInputKeys.IS_COMPLETED,
             identifyStatus(e.target.value),
           )
         }

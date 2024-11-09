@@ -39,10 +39,7 @@ export function Profile() {
     mutationKey: ['updateProfile'],
     mutationFn: (data: Partial<IUser>) => UserService.updateProfile(data),
     onError: err => setServerErrorMessage(errorCatch(err)),
-    onSuccess: res => {
-      setIsEmailDisabled(true);
-      console.log('success, res:', res);
-    },
+    onSuccess: () => setIsEmailDisabled(true),
   });
 
   const onSubmit: SubmitHandler<Partial<IUser>> = data => {
@@ -50,7 +47,6 @@ export function Profile() {
   };
 
   useEffect(() => {
-    console.log(data);
     if (data) setValue('username', data.username);
   }, [data]);
 

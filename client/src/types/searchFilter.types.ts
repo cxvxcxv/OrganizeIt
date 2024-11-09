@@ -4,10 +4,3 @@ export type TSearchFilters = {
   priority?: 'low' | 'medium' | 'high';
   isCompleted?: boolean;
 };
-
-export enum ESearchFilterKeys {
-  CATEGORY_ID = 'categoryId',
-  DEADLINE = 'deadline',
-  PRIORITY = 'priority',
-  IS_COMPLETED = 'isCompleted',
-}

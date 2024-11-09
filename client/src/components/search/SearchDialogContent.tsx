@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 
-import { ESearchFilterKeys, TSearchFilters } from '@/types/searchFilter.types';
-import { ITask } from '@/types/task.types';
+import { TSearchFilters } from '@/types/searchFilter.types';
+import { ETaskInputKeys, ITask } from '@/types/task.types';
 
 import { useProfile } from '@/hooks/useProfile';
 
@@ -25,12 +25,10 @@ export function SearchDialogContent({
   const [searchValue, setSearchValue] = useState('');
   const [filteredTasks, setFilteredTasks] = useState<ITask[]>([]);
 
-  const handleChangeSearchFilters = (filter: ESearchFilterKeys, value: any) => {
-    setSearchFilters(prev => ({ ...prev, [filter]: value }));
-  };
+  const handleChangeSearchFilters = (key: ETaskInputKeys, value: any) =>
+    setSearchFilters(prev => ({ ...prev, [key]: value }));
 
   const handleUpdateTaskList = (updatedTask: ITask) => {
-    console.log('updating task list...');
     const updatedTasks = filteredTasks.map(task =>
       task.id === updatedTask.id ? updatedTask : task,
     );
@@ -38,8 +36,9 @@ export function SearchDialogContent({
   };
 
   useEffect(() => {
+    console.log('use effect triggered');
     setFilteredTasks(handleSearch(tasks, searchFilters, searchValue));
-  }, [isSuccess, searchFilters, searchValue]);
+  }, [tasks.length, isSuccess, searchFilters, searchValue]);
 
   return (
     <section>

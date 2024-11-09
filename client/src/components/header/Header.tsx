@@ -1,11 +1,9 @@
 'use client';
 
-import { Plus } from 'lucide-react';
-
 import { useProfile } from '@/hooks/useProfile';
 
 import { Search } from '../search/Search';
-import { ButtonActive } from '../ui/buttons/ButtonActive';
+import { CreateTask } from '../task/CreateTask';
 
 export function Header() {
   const { data } = useProfile();
@@ -15,10 +13,7 @@ export function Header() {
         <Search />
       </div>
       <div className="flex items-center gap-8">
-        <ButtonActive>
-          <Plus />
-          <span className="hidden md:block">New Task</span>
-        </ButtonActive>
+        <CreateTask />
       </div>
     </section>
   );

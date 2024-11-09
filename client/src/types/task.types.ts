@@ -1,5 +1,5 @@
 export interface ITask {
-  [key: string]: any; //allow indexing dynamically with string keys
+  [key: string]: any; //allows indexing dynamically with string keys
 
   id: number;
   title: string;
@@ -12,6 +12,8 @@ export interface ITask {
 }
 
 export type TTaskInput = {
+  [key: string]: any; //allows indexing dynamically with string keys
+
   title: string;
   description?: string | null;
   deadline: string;
@@ -19,3 +21,12 @@ export type TTaskInput = {
   isCompleted: boolean;
   categoryId: number | null;
 };
+
+export enum ETaskInputKeys {
+  CATEGORY_ID = 'categoryId',
+  DEADLINE = 'deadline',
+  PRIORITY = 'priority',
+  IS_COMPLETED = 'isCompleted',
+  TITLE = 'title',
+  DESCRIPTION = 'description',
+}

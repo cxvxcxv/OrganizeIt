@@ -1,5 +1,5 @@
-import { ESearchFilterKeys, TSearchFilters } from '@/types/searchFilter.types';
-import { ITask } from '@/types/task.types';
+import { TSearchFilters } from '@/types/searchFilter.types';
+import { ETaskInputKeys, ITask } from '@/types/task.types';
 
 export function handleSearch(
   tasks?: ITask[],
@@ -15,7 +15,7 @@ export function handleSearch(
     const filtersMatch = searchFilters
       ? Object.entries(searchFilters).every(([key, value]) => {
           if (value === undefined) return true;
-          if (key === ESearchFilterKeys.DEADLINE && value !== null) {
+          if (key === ETaskInputKeys.DEADLINE && value !== null) {
             const userTimezoneOffset =
               new Date(task[key]).getTimezoneOffset() * 60000;
             const taskDeadline =
