@@ -1,3 +1,5 @@
+import { ICategory } from './category.types';
+
 export interface ITask {
   [key: string]: any; //allows indexing dynamically with string keys
 
@@ -7,8 +9,7 @@ export interface ITask {
   deadline: string;
   priority: 'low' | 'medium' | 'high';
   isCompleted: boolean;
-  categoryId: number;
-  userId: number;
+  category: ICategory;
 }
 
 export type TTaskInput = {
@@ -30,3 +31,8 @@ export enum ETaskInputKeys {
   TITLE = 'title',
   DESCRIPTION = 'description',
 }
+
+export type TTaskItemProps = {
+  task: ITask;
+  index: number;
+};

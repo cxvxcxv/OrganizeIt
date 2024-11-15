@@ -35,12 +35,13 @@ export function CreateTaskDialogContent({
     defaultValues: { priority: 'low' },
   });
 
-  const { mutate, isPending, isSuccess, isError } = useMutation({
+  const { mutate, isPending, isError } = useMutation({
     mutationKey: ['createTask'],
     mutationFn: (data: TTaskInput) => TaskService.create(data),
-    onMutate: data => console.log(data),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['profile'] }),
-    onError: err => console.log(err),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['profile'] });
+      toggleCreateTaskDialog();
+    },
   });
 
   const onSubmit: SubmitHandler<TTaskInput> = data => {
@@ -129,9 +130,6 @@ export function CreateTaskDialogContent({
       </div>
       {isError && (
         <p className="text-xs text-error">Unexpected error occurred</p>
-      )}
-      {isSuccess && (
-        <p className="text-xs text-success">Successfully created</p>
       )}
       <ButtonActive className="ml-auto mt-8" disabled={isPending}>
         {isPending ? <Loader /> : <p>Create Task</p>}

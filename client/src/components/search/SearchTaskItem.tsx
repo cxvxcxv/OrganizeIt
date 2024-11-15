@@ -1,57 +1,21 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+'use client';
+
 import { CircleCheck } from 'lucide-react';
-import { useState } from 'react';
 
 import { COLORS } from '@/constants/color.constants';
 
 import { ITask } from '@/types/task.types';
 
-import { TaskService } from '@/services/task.service';
+import { useTaskCompletionMutation } from '@/hooks/useTaskCompletionMutation';
+
+import { formatDate } from '@/utils/formatDate';
 
 type TSearchTaskItemProps = {
   task: ITask;
-  handleUpdateTaskList: (updatedTask: ITask) => void;
 };
 
-// formats date into yyyy-mm-dd format
-const formatDate = (date: string) => new Date(date).toISOString().split('T')[0];
-
-function useTaskCompletionMutation(
-  task: ITask,
-  onSuccessCallback: (updatedTask: ITask) => void,
-) {
-  const queryClient = useQueryClient();
-  const [isCompletedOptimistic, setIsCompletedOptimistic] = useState(
-    task.isCompleted,
-  );
-
-  const mutation = useMutation({
-    mutationKey: ['changeIsCompleted', task.id],
-    mutationFn: () =>
-      TaskService.update(task.id, {
-        ...task,
-        deadline: formatDate(task.deadline),
-        isCompleted: isCompletedOptimistic,
-      }),
-    onMutate: () => setIsCompletedOptimistic(prev => !prev),
-    onSuccess: () => {
-      onSuccessCallback({ ...task, isCompleted: isCompletedOptimistic });
-      queryClient.invalidateQueries({ queryKey: ['profile'] });
-    },
-    onError: () => setIsCompletedOptimistic(task.isCompleted),
-  });
-
-  return { ...mutation, isCompletedOptimistic };
-}
-
-export function SearchTaskItem({
-  task,
-  handleUpdateTaskList,
-}: TSearchTaskItemProps) {
-  const { mutate, isCompletedOptimistic } = useTaskCompletionMutation(
-    task,
-    handleUpdateTaskList,
-  );
+export function SearchTaskItem({ task }: TSearchTaskItemProps) {
+  const { mutate, isCompletedOptimistic } = useTaskCompletionMutation(task);
   const formattedDeadline = formatDate(task.deadline);
 
   return (

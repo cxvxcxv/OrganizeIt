@@ -8,7 +8,7 @@ import { CreateTask } from '../task/CreateTask';
 export function Header() {
   const { data } = useProfile();
   return (
-    <section className="mb-8 flex w-full items-center justify-between gap-8 rounded-b-xl bg-white px-8 py-2">
+    <section className="mb-2 flex w-full items-center justify-between gap-8 rounded-b-xl bg-white px-8 py-2 md:mb-8">
       <div className="flex-grow">
         <Search />
       </div>

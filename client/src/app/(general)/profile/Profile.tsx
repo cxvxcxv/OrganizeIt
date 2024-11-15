@@ -51,7 +51,7 @@ export function Profile() {
   }, [data]);
 
   return (
-    <section className="rounded-xl bg-secondary p-8">
+    <section className="rounded-xl bg-white p-8">
       <h1>Profile</h1>
 
       <div className="-mx-8 my-4 border border-background" />

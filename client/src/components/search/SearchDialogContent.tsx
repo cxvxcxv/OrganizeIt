@@ -19,8 +19,7 @@ export function SearchDialogContent({
 }: {
   toggleSearchDialog: () => void;
 }) {
-  const { data: { tasks = [], categories = [] } = {}, isSuccess } =
-    useProfile();
+  const { data: { tasks = [], categories = [] } = {} } = useProfile();
   const [searchFilters, setSearchFilters] = useState<TSearchFilters>();
   const [searchValue, setSearchValue] = useState('');
   const [filteredTasks, setFilteredTasks] = useState<ITask[]>([]);
@@ -28,17 +27,9 @@ export function SearchDialogContent({
   const handleChangeSearchFilters = (key: ETaskInputKeys, value: any) =>
     setSearchFilters(prev => ({ ...prev, [key]: value }));
 
-  const handleUpdateTaskList = (updatedTask: ITask) => {
-    const updatedTasks = filteredTasks.map(task =>
-      task.id === updatedTask.id ? updatedTask : task,
-    );
-    setFilteredTasks(handleSearch(updatedTasks, searchFilters, searchValue));
-  };
-
   useEffect(() => {
-    console.log('use effect triggered');
     setFilteredTasks(handleSearch(tasks, searchFilters, searchValue));
-  }, [tasks.length, isSuccess, searchFilters, searchValue]);
+  }, [JSON.stringify(tasks), searchFilters, searchValue]);
 
   return (
     <section>
@@ -61,11 +52,7 @@ export function SearchDialogContent({
       <div className="max-h-64 overflow-y-auto border-y border-background">
         {filteredTasks.length > 0 ? (
           filteredTasks.map(task => (
-            <SearchTaskItem
-              key={task.id}
-              task={task}
-              handleUpdateTaskList={handleUpdateTaskList}
-            />
+            <SearchTaskItem key={task.id} task={task} />
           ))
         ) : (
           <p>No tasks found</p>
