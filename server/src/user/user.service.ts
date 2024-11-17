@@ -22,8 +22,8 @@ export class UserService {
         ],
       },
       include: {
-        tasks: { orderBy: { deadline: 'desc' } },
-        categories: true,
+        tasks: { orderBy: { id: 'desc' }, include: { category: true } },
+        categories: { orderBy: { name: 'asc' } },
       },
     });
   }
