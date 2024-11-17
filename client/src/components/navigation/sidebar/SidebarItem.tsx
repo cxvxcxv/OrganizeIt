@@ -12,6 +12,7 @@ export function SidebarItem({ item }: { item: IMenuItem }) {
   return (
     <Link
       href={item.link}
+      aria-label={item.name}
       className={clsx(
         'flex items-center border-b border-l-8 border-b-background px-8 py-4',
         {

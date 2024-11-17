@@ -18,7 +18,7 @@ import { ButtonActive } from '../ui/buttons/ButtonActive';
 
 import { TaskService } from '@/services/task.service';
 
-export function CreateTaskDialogContent({
+export default function CreateTaskDialogContent({
   toggleCreateTaskDialog,
 }: {
   toggleCreateTaskDialog: () => void;

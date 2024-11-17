@@ -12,6 +12,7 @@ export function NavbarItem({ item }: { item: IMenuItem }) {
   return (
     <Link
       href={item.link}
+      aria-label={item.name}
       className={clsx('flex flex-grow items-center justify-center', {
         'bg-primary bg-opacity-15': isActive,
       })}

@@ -1,11 +1,15 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { useRef } from 'react';
 
 import { Dialog } from '../Dialog';
 import { Field } from '../ui/Field';
 
-import { SearchDialogContent } from './SearchDialogContent';
+const DynamicSearchDialogContent = dynamic(
+  () => import('@/components/search/SearchDialogContent'),
+  { ssr: false },
+);
 
 export function Search() {
   const searchDialogRef = useRef<HTMLDialogElement>(null);
@@ -26,7 +30,7 @@ export function Search() {
         onClick={() => toggleSearchDialog()}
       />
       <Dialog ref={searchDialogRef} toggleDialog={toggleSearchDialog}>
-        <SearchDialogContent toggleSearchDialog={toggleSearchDialog} />
+        <DynamicSearchDialogContent toggleSearchDialog={toggleSearchDialog} />
       </Dialog>
     </section>
   );

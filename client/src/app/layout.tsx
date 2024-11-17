@@ -1,11 +1,16 @@
 import type { Metadata } from 'next';
+import { DM_Sans } from 'next/font/google';
 
 import { SITE_NAME } from '@/constants/seo.constants';
 
 import { Providers } from './Providers';
 import './globals.css';
 
-// const dm_sans = DM_Sans({ subsets: ['latin'] });
+const dmSans = DM_Sans({
+  subsets: ['latin'], // Specify subsets as needed
+  weight: ['400', '500', '700'], // Specify the weights you need
+  display: 'swap', // Use display=swap for better performance
+});
 
 export const metadata: Metadata = {
   title: {
@@ -22,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className={dmSans.className}>
         <Providers>{children}</Providers>
       </body>
     </html>

@@ -32,7 +32,7 @@ export function TaskItem({ task, index }: TTaskItemProps) {
       </div>
       <p
         className={clsx('hidden md:block', {
-          'text-important font-semibold': index <= 1 && !task.isCompleted,
+          'font-semibold text-important': index <= 1 && !task.isCompleted,
         })}
       >
         {index <= 1 ? taskLabels[index] : formatDate(task.deadline)}

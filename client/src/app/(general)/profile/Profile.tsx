@@ -65,14 +65,11 @@ export function Profile() {
               label=""
               defaultValue={data?.username}
               placeholder="Username"
+              maxLength={MAX_USERNAME_LENGTH}
               {...register('username', {
                 minLength: {
                   value: MIN_USERNAME_LENGTH,
                   message: `Username must be at least ${MIN_USERNAME_LENGTH} characters`,
-                },
-                maxLength: {
-                  value: MAX_USERNAME_LENGTH,
-                  message: `Username cannot exceed ${MAX_USERNAME_LENGTH} characters`,
                 },
               })}
             />

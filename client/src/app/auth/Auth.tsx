@@ -62,7 +62,14 @@ export function Auth() {
   return (
     <section className="flex h-screen items-center justify-center p-4 xl:p-48">
       <div className="relative hidden w-full p-8 xl:block">
-        <Image src={authWelcome} alt="" className="w-full" priority />
+        <Image
+          src={authWelcome}
+          alt=""
+          className="w-full"
+          loading="lazy"
+          placeholder="blur"
+          blurDataURL="LAPshbRNEqpfRixo%MS9%JxtIUjx"
+        />
         <div className="absolute left-0 top-0 -z-10 h-full w-3/4 rounded-[20%] bg-white" />
       </div>
       <div className="w-full sm:w-2/3">

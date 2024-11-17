@@ -14,7 +14,7 @@ import { SearchFilters } from './SearchFilters';
 import { SearchTaskItem } from './SearchTaskItem';
 import { handleSearch } from './handleSearch';
 
-export function SearchDialogContent({
+export default function SearchDialogContent({
   toggleSearchDialog,
 }: {
   toggleSearchDialog: () => void;
