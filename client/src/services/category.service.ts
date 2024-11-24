@@ -6,21 +6,27 @@ import { axiosAuth } from '@/api/interceptors';
 
 export const CategoryService = {
   async create(data: TCategoryInput) {
-    const response = await axiosAuth.post<ICategory>(
-      SERVER_ENDPOINTS.CATEGORIES.BASE,
-      data,
-    );
-
-    return response?.data;
+    try {
+      const response = await axiosAuth.post<ICategory>(
+        SERVER_ENDPOINTS.CATEGORIES.BASE,
+        data,
+      );
+      return response.data;
+    } catch (err) {
+      throw err;
+    }
   },
 
   async update(categoryId: number, data: TCategoryInput) {
-    const response = await axiosAuth.put<ICategory>(
-      `${SERVER_ENDPOINTS.CATEGORIES.BASE}/${categoryId}`,
-      data,
-    );
-
-    return response?.data;
+    try {
+      const response = await axiosAuth.put<ICategory>(
+        `${SERVER_ENDPOINTS.CATEGORIES.BASE}/${categoryId}`,
+        data,
+      );
+      return response.data;
+    } catch (err) {
+      throw err;
+    }
   },
 
   async delete(categoryId: number) {

@@ -11,31 +11,41 @@ import { removeTokenFromStorage, saveTokenToStorage } from './auth.helper';
 
 export const AuthService = {
   async auth(method: TAuthMethod, data: TAuthForm) {
-    const response = await axiosPublic.post<TAuthResponse>(
-      `${SERVER_ENDPOINTS.AUTH.BASE}/${method}`,
-      data,
-    );
-
-    return response?.data;
+    try {
+      const response = await axiosPublic.post<TAuthResponse>(
+        `${SERVER_ENDPOINTS.AUTH.BASE}/${method}`,
+        data,
+      );
+      return response.data;
+    } catch (err) {
+      throw err;
+    }
   },
 
   async refreshTokens() {
-    const response = await axiosPublic.post<TAuthResponse>(
-      SERVER_ENDPOINTS.AUTH.SIGN_IN.REFRESH_TOKENS,
-    );
+    try {
+      const response = await axiosPublic.post<TAuthResponse>(
+        SERVER_ENDPOINTS.AUTH.SIGN_IN.REFRESH_TOKENS,
+      );
 
-    if (response.data.accessToken)
-      saveTokenToStorage(response.data.accessToken);
+      if (response.data.accessToken)
+        saveTokenToStorage(response.data.accessToken);
 
-    return response?.data;
+      return response.data;
+    } catch (err) {
+      throw err;
+    }
   },
 
   async signOut() {
-    const response = await axiosPublic.post<boolean>(
-      SERVER_ENDPOINTS.AUTH.SIGN_OUT,
-    );
-
-    if (response.data) removeTokenFromStorage();
-    return response?.data;
+    try {
+      const response = await axiosPublic.post<boolean>(
+        SERVER_ENDPOINTS.AUTH.SIGN_OUT,
+      );
+      if (response.data) removeTokenFromStorage();
+      return response.data;
+    } catch (err) {
+      throw err;
+    }
   },
 };

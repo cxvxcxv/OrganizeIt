@@ -1,5 +1,3 @@
-import { AxiosError } from 'axios';
-
 import { SERVER_ENDPOINTS } from '@/constants/server-endpoint.constants';
 
 import { IProfile, IUser } from '@/types/user.types';
@@ -8,10 +6,14 @@ import { axiosAuth } from '@/api/interceptors';
 
 export const UserService = {
   async getProfile() {
-    const response = await axiosAuth.get<IProfile>(
-      `/${SERVER_ENDPOINTS.USERS.BASE}`,
-    );
-    return response?.data;
+    try {
+      const response = await axiosAuth.get<IProfile>(
+        `/${SERVER_ENDPOINTS.USERS.BASE}`,
+      );
+      return response.data;
+    } catch (err) {
+      throw err;
+    }
   },
 
   async updateProfile(data: Partial<IUser>) {
@@ -22,7 +24,6 @@ export const UserService = {
       );
       return response.data;
     } catch (err) {
-      if (err instanceof AxiosError) throw err.response?.data;
       throw err;
     }
   },

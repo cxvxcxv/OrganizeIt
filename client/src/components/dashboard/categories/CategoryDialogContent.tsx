@@ -33,6 +33,8 @@ export default function CategoryDialogContent({
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['profile'] });
       toggleCategoryDialog();
+      setErrorMessage('');
+      setNewCategoryName('');
     },
     onError: err => setErrorMessage(errorCatch(err)),
   });

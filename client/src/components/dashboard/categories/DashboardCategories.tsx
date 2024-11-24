@@ -43,8 +43,10 @@ export function DashboardCategories() {
 
   return (
     <section className="rounded-xl bg-white p-4">
-      <div>
-        <h3 className="border-b border-background pb-4">My categories</h3>
+      <h3 className="border-b border-background pb-4">
+        My categories ({categories.length})
+      </h3>
+      <div className="max-h-96 overflow-y-auto">
         {categories.map(category => (
           <DashboardCategoryItem
             key={category.id}

@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { FileCheck, Loader, X } from 'lucide-react';
+import { FileCheck, X } from 'lucide-react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import {
@@ -13,6 +13,7 @@ import { useProfile } from '@/hooks/useProfile';
 
 import { identifyTaskCategoryId } from '@/utils/identifyProperty';
 
+import { Loader } from '../Loader';
 import { Field } from '../ui/Field';
 import { ButtonActive } from '../ui/buttons/ButtonActive';
 
@@ -123,7 +124,7 @@ export default function CreateTaskDialogContent({
         <textarea
           id="descriptionCreate"
           className="h-24 w-full resize-none rounded-md bg-background p-2 text-sm"
-          placeholder="Short description about the task"
+          placeholder="Description (optional)"
           {...register('description')}
           maxLength={MAX_DESCRIPTION_LENGTH}
         />

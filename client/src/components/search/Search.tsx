@@ -4,7 +4,6 @@ import dynamic from 'next/dynamic';
 import { useRef } from 'react';
 
 import { Dialog } from '../Dialog';
-import { Field } from '../ui/Field';
 
 const DynamicSearchDialogContent = dynamic(
   () => import('@/components/search/SearchDialogContent'),
@@ -23,12 +22,13 @@ export function Search() {
 
   return (
     <section>
-      <Field
+      <button
         id="search"
-        label=""
-        placeholder="Search..."
         onClick={() => toggleSearchDialog()}
-      />
+        className="w-full cursor-text rounded-md bg-background px-4 py-2 text-left text-black text-opacity-40"
+      >
+        Search...
+      </button>
       <Dialog ref={searchDialogRef} toggleDialog={toggleSearchDialog}>
         <DynamicSearchDialogContent toggleSearchDialog={toggleSearchDialog} />
       </Dialog>

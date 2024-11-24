@@ -49,10 +49,14 @@ export default function SearchDialogContent({
       </div>
 
       <h3 className="mb-2">Tasks</h3>
-      <div className="max-h-64 overflow-y-auto border-y border-background">
+      <div className="max-h-64 overflow-y-auto border-y border-background py-2">
         {filteredTasks.length > 0 ? (
           filteredTasks.map(task => (
-            <SearchTaskItem key={task.id} task={task} />
+            <SearchTaskItem
+              key={task.id}
+              task={task}
+              toggleSearchDialog={toggleSearchDialog}
+            />
           ))
         ) : (
           <p>No tasks found</p>

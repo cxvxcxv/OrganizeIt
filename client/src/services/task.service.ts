@@ -5,13 +5,27 @@ import { ITask, TTaskInput } from '@/types/task.types';
 import { axiosAuth } from '@/api/interceptors';
 
 export const TaskService = {
-  async create(data: TTaskInput) {
-    const response = await axiosAuth.post<ITask>(
-      SERVER_ENDPOINTS.TASKS.BASE,
-      data,
-    );
+  async getOne(taskId: number) {
+    try {
+      const response = await axiosAuth.get<ITask>(
+        `${SERVER_ENDPOINTS.TASKS.BASE}/${taskId}`,
+      );
+      return response.data;
+    } catch (err: unknown) {
+      throw err;
+    }
+  },
 
-    return response?.data;
+  async create(data: TTaskInput) {
+    try {
+      const response = await axiosAuth.post<ITask>(
+        SERVER_ENDPOINTS.TASKS.BASE,
+        data,
+      );
+      return response.data;
+    } catch (err) {
+      throw err;
+    }
   },
 
   async update(taskId: number, data: TTaskInput) {
@@ -27,10 +41,14 @@ export const TaskService = {
   },
 
   async delete(taskId: number) {
-    const response = await axiosAuth.delete<boolean>(
-      `${SERVER_ENDPOINTS.TASKS.BASE}/${taskId}`,
-    );
+    try {
+      const response = await axiosAuth.delete<boolean>(
+        `${SERVER_ENDPOINTS.TASKS.BASE}/${taskId}`,
+      );
 
-    return response?.data;
+      return response.data;
+    } catch (err) {
+      throw err;
+    }
   },
 };

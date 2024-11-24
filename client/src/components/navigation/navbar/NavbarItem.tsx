@@ -8,7 +8,9 @@ import { IMenuItem } from '@/types/menu-item.types';
 
 export function NavbarItem({ item }: { item: IMenuItem }) {
   const pathname = usePathname();
-  const isActive = pathname === item.link;
+  const isActive =
+    item.link === '/' ? pathname === item.link : pathname.startsWith(item.link);
+
   return (
     <Link
       href={item.link}

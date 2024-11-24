@@ -1,10 +1,13 @@
 import clsx from 'clsx';
 import { CircleCheck } from 'lucide-react';
+import Link from 'next/link';
 
 import { COLORS } from '@/constants/color.constants';
 import { taskLabels } from '@/constants/task.constants';
 
 import { TTaskItemProps } from '@/types/task.types';
+
+import { PAGES } from '@/config/urls.config';
 
 import { useTaskCompletionMutation } from '@/hooks/useTaskCompletionMutation';
 
@@ -26,9 +29,12 @@ export function TaskItem({ task, index }: TTaskItemProps) {
           className="min-h-6 min-w-6 cursor-pointer transition-colors"
           onClick={() => mutate()}
         />
-        <p className="overflow-hidden text-ellipsis whitespace-nowrap">
+        <Link
+          href={`${PAGES.TASKS}/${task.id}`}
+          className="overflow-hidden text-ellipsis whitespace-nowrap"
+        >
           {task.title}
-        </p>
+        </Link>
       </div>
       <p
         className={clsx('hidden md:block', {

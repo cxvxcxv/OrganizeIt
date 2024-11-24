@@ -39,7 +39,7 @@ export const Field = forwardRef<HTMLInputElement, TInputFieldProps>(
           placeholder={placeholder}
           autoComplete={autoComplete || 'off'}
           className={clsx(
-            `w-full rounded-md bg-background p-2 text-sm outline-none ${inputExtra}`,
+            `w-full rounded-md bg-background p-2 outline-none ${inputExtra}`,
             { 'cursor-not-allowed opacity-70': disabled },
           )}
           {...rest}
