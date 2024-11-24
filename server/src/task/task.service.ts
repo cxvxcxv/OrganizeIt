@@ -15,6 +15,17 @@ export class TaskService {
     private readonly categoryService: CategoryService,
   ) {}
 
+  async getOne(userId: number, taskId: number) {
+    const task = await this.prismaService.task.findUnique({
+      where: { id: taskId, userId: userId },
+      include: { category: true },
+    });
+
+    if (!task) throw new NotFoundException('Task not found');
+
+    return task;
+  }
+
   async create(userId: number, taskDto: TaskDto) {
     const { categoryId, deadline, ...data } = taskDto;
 
@@ -78,7 +89,7 @@ export class TaskService {
       where: { id: taskId },
     });
 
-    if (!task) throw new NotFoundException('task not found');
+    if (!task) throw new NotFoundException('Task not found');
     if (task.userId !== userId) throw new ForbiddenException('no access');
 
     return task;

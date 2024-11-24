@@ -21,14 +21,17 @@ export class CategoryService {
     const category = await this.prismaService.category.findFirst({
       where: {
         userId,
-        name: categoryDto.name,
+        name: categoryDto.name.trim(),
       },
     });
 
     if (category) throw new BadRequestException('category already exists');
 
     const newCategory = await this.prismaService.category.create({
-      data: { name: categoryDto.name, user: { connect: { id: userId } } },
+      data: {
+        name: categoryDto.name.trim(),
+        user: { connect: { id: userId } },
+      },
     });
 
     return newCategory;
@@ -37,12 +40,21 @@ export class CategoryService {
   async update(userId: number, categoryId: number, categoryDto: CategoryDto) {
     await this.validateCategory(userId, categoryId);
 
-    const category = await this.prismaService.category.update({
+    const category = await this.prismaService.category.findFirst({
+      where: {
+        userId,
+        name: categoryDto.name.trim(),
+      },
+    });
+
+    if (category) throw new BadRequestException('category already exists');
+
+    const updatedCategory = await this.prismaService.category.update({
       where: { id: categoryId },
       data: categoryDto,
     });
 
-    return category;
+    return updatedCategory;
   }
 
   async delete(userId: number, categoryId: number) {

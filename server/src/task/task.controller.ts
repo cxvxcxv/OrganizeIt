@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   Param,
   ParseIntPipe,
   Post,
@@ -16,6 +17,15 @@ import { TaskService } from './task.service';
 @Controller('tasks')
 export class TaskController {
   constructor(private readonly taskService: TaskService) {}
+
+  @Get('/:taskId')
+  @Protect()
+  async get(
+    @CurrentUser('id') userId: number,
+    @Param('taskId', ParseIntPipe) taskId: number,
+  ) {
+    return await this.taskService.getOne(userId, taskId);
+  }
 
   @Post()
   @Protect()
